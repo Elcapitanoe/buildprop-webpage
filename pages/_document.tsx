@@ -4,19 +4,19 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta name="description" content="Komodo Build Prop - Advanced Android build properties and system optimization tools" />
-        <meta name="keywords" content="Android, build.prop, optimization, performance, Komodo" />
-        <meta name="author" content="Komodo Build Prop Team" />
+        <meta name="description" content="Pixel Build Prop - Komodo module to spoof your Android device as Google Pixel 9 Pro XL with advanced system optimization" />
+        <meta name="keywords" content="Pixel Build Prop, Komodo, Android, Google Pixel 9 Pro XL, device spoofing, build.prop, system optimization, Magisk module" />
+        <meta name="author" content="Pixel Build Prop Team" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Komodo Build Prop" />
-        <meta property="og:description" content="Advanced Android build properties and system optimization tools" />
+        <meta property="og:title" content="Pixel Build Prop - Komodo Module" />
+        <meta property="og:description" content="Spoof your Android device as Google Pixel 9 Pro XL using Komodo build prop module" />
         <meta property="og:type" content="website" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Komodo Build Prop" />
-        <meta name="twitter:description" content="Advanced Android build properties and system optimization tools" />
+        <meta name="twitter:title" content="Pixel Build Prop - Komodo Module" />
+        <meta name="twitter:description" content="Spoof your Android device as Google Pixel 9 Pro XL using Komodo build prop module" />
         
         {/* Favicon - Multiple formats for better compatibility */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />

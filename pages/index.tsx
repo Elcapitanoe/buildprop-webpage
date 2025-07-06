@@ -65,7 +65,7 @@ const Home: React.FC<Props> = ({ changelog, release }) => {
   return (
     <div className="min-h-screen animated-bg">
       <Head>
-        <title>Komodo Build Prop</title>
+        <title>Pixel Build Prop</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
