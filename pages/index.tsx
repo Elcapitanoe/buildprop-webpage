@@ -290,17 +290,13 @@ const rateLimit = {
   limit: rateData.rate?.limit ?? 0,
   remaining: rateData.rate?.remaining ?? 0,
   reset: rateData.rate?.reset
-    ? new Date(rateData.rate.reset * 1000).toLocaleString('en-ID', {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
+    ? new Date(rateData.rate.reset * 1000).toLocaleString('id-ID', {
+        timeZone: 'Asia/Jakarta',
         hour12: false,
       })
     : 'Unknown',
 };
+
 
 
     return {
