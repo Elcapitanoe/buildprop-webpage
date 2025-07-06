@@ -37,9 +37,6 @@ export default function Document() {
         <meta name="theme-color" content="#3b82f6" />
         <meta name="msapplication-TileColor" content="#3b82f6" />
         
-        {/* Viewport for better mobile experience */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        
         {/* Hide Next.js dev tools styles */}
         <style dangerouslySetInnerHTML={{
           __html: `
