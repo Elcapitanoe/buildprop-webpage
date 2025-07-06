@@ -225,45 +225,65 @@ const Home: React.FC<Props> = ({ changelog, release }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    // Fetch changelog
+    // Fetch changelog (raw markdown dari GitHub)
     const changelogRes = await fetch(
       'https://raw.githubusercontent.com/Elcapitanoe/Komodo-Build-Prop/main/CHANGELOG.md'
     );
-    
+
     if (!changelogRes.ok) {
       throw new Error(`Failed to fetch changelog: ${changelogRes.status}`);
     }
-    
+
     const changelog = await changelogRes.text();
 
-    // Fetch releases
+    // Siapkan opsi header jika ada token
+    const githubToken = process.env.GITHUB_TOKEN;
+    const githubHeaders = githubToken
+      ? {
+          headers: {
+            Authorization: `Bearer ${githubToken}`,
+            'User-Agent': 'Elcapitanoe-App',
+            Accept: 'application/vnd.github+json',
+          },
+        }
+      : {}; // fallback tanpa token
+
+    // Fetch releases dari GitHub API
     const releasesRes = await fetch(
-      'https://api.github.com/repos/Elcapitanoe/Komodo-Build-Prop/releases'
+      'https://api.github.com/repos/Elcapitanoe/Komodo-Build-Prop/releases',
+      githubHeaders
     );
-  
+
     if (!releasesRes.ok) {
       throw new Error(`Failed to fetch releases: ${releasesRes.status}`);
     }
-    
+
     const releases: Release[] = await releasesRes.json();
-    const latest = releases.find((r) => !r.name.toLowerCase().includes('draft') && !r.name.toLowerCase().includes('pre')) || releases[0] || null;
+
+    const latest =
+      releases.find(
+        (r) =>
+          !r.name.toLowerCase().includes('draft') &&
+          !r.name.toLowerCase().includes('pre')
+      ) || releases[0] || null;
 
     return {
       props: {
         changelog,
         release: latest,
       },
-      revalidate: 3600, // ISR every hour
+      revalidate: 3600, // Rebuild setiap 1 jam
     };
   } catch (error) {
     console.error('Error fetching data:', error);
-    
+
     return {
       props: {
-        changelog: '# Changelog\n\nUnable to load changelog at the moment. Please try again later.',
+        changelog:
+          '# Changelog\n\nUnable to load changelog at the moment. Please try again later.',
         release: null,
       },
-      revalidate: 300, // Retry after 5 minutes on error
+      revalidate: 300, // Retry setelah 5 menit
     };
   }
 };
