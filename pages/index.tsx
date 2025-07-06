@@ -293,7 +293,7 @@ const rateLimit = {
     ? new Date(rateData.rate.reset * 1000).toLocaleString('id-ID', {
         timeZone: 'Asia/Jakarta',
         hour12: false,
-      })
+      }) + ' WIB (UTC+7)'
     : 'Unknown',
 };
 
