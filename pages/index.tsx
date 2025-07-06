@@ -286,13 +286,22 @@ export const getStaticProps: GetStaticProps = async () => {
     const rateRes = await fetch('https://api.github.com/rate_limit', githubHeaders);
     const rateData = await rateRes.json();
 
-    const rateLimit = {
-      limit: rateData.rate?.limit ?? 0,
-      remaining: rateData.rate?.remaining ?? 0,
-      reset: rateData.rate?.reset
-        ? new Date(rateData.rate.reset * 1000).toLocaleString()
-        : 'Unknown',
-    };
+const rateLimit = {
+  limit: rateData.rate?.limit ?? 0,
+  remaining: rateData.rate?.remaining ?? 0,
+  reset: rateData.rate?.reset
+    ? new Date(rateData.rate.reset * 1000).toLocaleString('en-ID', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      })
+    : 'Unknown',
+};
+
 
     return {
       props: {
