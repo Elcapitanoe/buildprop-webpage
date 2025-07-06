@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -63,14 +64,24 @@ const Home: React.FC<Props> = ({ changelog, release }) => {
 
   return (
     <div className="min-h-screen animated-bg">
+	  <Head>
+        <title>Pixel Build Prop</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="description"
+          content="Spoof your device as Pixel 9 Pro XL with Komodo Build Prop module."
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+	   
       <div className="main-container">
         {/* Hero Section */}
         <section className={`hero-section content-section transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h1 className="hero-title">
-            Google Pixel 9 Pro XL <br /> Build Prop <br /> (Komodo / Komodo_Beta)
+            Komodo or Komodo_Beta Build Prop
           </h1>
           <p className="hero-subtitle">
-            A module to spoof your device as a Pixel 9 Pro XL for enhanced compatibility and feature access.
+            A module to spoof your device as a Google Pixel 9 Pro XL.
           </p>
           
           {/* Stats Section */}
