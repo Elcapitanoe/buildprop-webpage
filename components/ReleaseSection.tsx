@@ -78,7 +78,7 @@ const ReleaseSection = memo<ReleaseSectionProps>(({ release }) => {
         </div>
         
         {safeMarkdown && (
-          <div className="prose prose-gray max-w-none">
+          <div className="prose prose-gray max-w-none break-words overflow-x-auto">
             <ReactMarkdown>{safeMarkdown}</ReactMarkdown>
           </div>
         )}
