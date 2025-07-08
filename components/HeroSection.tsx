@@ -1,13 +1,18 @@
 import { memo } from 'react';
 import type { Release } from '../lib/types';
-import { formatDownloadCount, calculateTotalDownloads } from '../lib/utils';
+import { formatDownloadCount, calculateTotalDownloads, calculateTotalDownloadsFromAllReleases } from '../lib/utils';
 
 interface HeroSectionProps {
   readonly release: Release | null;
+  readonly releases?: Release[];
 }
 
-const HeroSection = memo<HeroSectionProps>(({ release }) => {
+const HeroSection = memo<HeroSectionProps>(({ release, releases }) => {
   const totalDownloads = release ? calculateTotalDownloads(release.assets) : 0;
+
+  const totalDownloadsAll = releases?.length
+    ? calculateTotalDownloadsFromAllReleases(releases)
+    : 0;
 
   return (
     <section className="text-center py-12 px-6 bg-white rounded-xl shadow-sm border border-gray-200 mb-8 animate-fade-in">
@@ -15,7 +20,7 @@ const HeroSection = memo<HeroSectionProps>(({ release }) => {
         KOMODO BUILD PROP
       </h1>
       <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        A module to spoof your device as a Google Pixel 9 Pro XL.
+        A module to spoof your device as a Google Pixel 9 Pro XL
       </p>
       
       {release && (
@@ -31,7 +36,7 @@ const HeroSection = memo<HeroSectionProps>(({ release }) => {
           
           <div className="text-center">
             <div className="text-2xl md:text-3xl font-semibold text-gray-900 mb-1">
-              {totalDownloads > 0 ? formatDownloadCount(totalDownloads) : '0'}
+              {totalDownloadsAll > 0 ? formatDownloadCount(totalDownloadsAll) : '0'}
             </div>
             <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">
               Total Downloads
@@ -40,12 +45,13 @@ const HeroSection = memo<HeroSectionProps>(({ release }) => {
           
           <div className="text-center">
             <div className="text-2xl md:text-3xl font-semibold text-gray-900 mb-1">
-              {release.assets.length}
+              {releases?.length ?? 0}
             </div>
             <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">
-              Available Files
+             Published Builds
             </div>
           </div>
+          
         </div>
       )}
     </section>

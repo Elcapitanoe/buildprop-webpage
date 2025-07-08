@@ -37,6 +37,14 @@ export function calculateTotalDownloads(assets: readonly { download_count: numbe
   return assets.reduce((total, asset) => total + (asset.download_count || 0), 0);
 }
 
+export function calculateTotalDownloadsFromAllReleases(
+  releases: readonly { assets: readonly { download_count: number }[] }[]
+): number {
+  return releases
+    .flatMap(release => release.assets)
+    .reduce((total, asset) => total + (asset.download_count || 0), 0);
+}
+
 export function createSafeMarkdown(content: string): string {
   if (!content || typeof content !== 'string') {
     return '';

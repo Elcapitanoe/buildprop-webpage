@@ -22,14 +22,16 @@ const ChangelogSection = memo<ChangelogSectionProps>(({ changelog }) => {
 
   return (
     <section className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8 animate-slide-up">
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-1 flex items-center gap-2">
-          <span className="text-lg">📝</span>
-          Changelog
+      <div className="flex items-start justify-between mb-6 pb-4 border-b border-gray-100">
+      <div className="mb-1">
+        <h2 className="font-semibold text-gray-900 mb-2 flex items-center gap-3">
+          <span className="text-2xl">📝</span>
+          <span className="text-3xl">Changelog</span>
         </h2>
-        <p className="text-sm text-gray-500">
-          Latest updates and improvements
+        <p className="text-gray-500">
+          Recent Changes and Enhancements
         </p>
+      </div>
       </div>
       
       <div className="changelog-content">

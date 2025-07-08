@@ -4,6 +4,7 @@ import type { PageProps } from '../lib/types';
 import { fetchReleases, fetchChangelog, fetchRateLimit, findLatestStableRelease } from '../lib/github-api';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
+import Notes from '../components/Notes';
 import ReleaseSection from '../components/ReleaseSection';
 import ChangelogSection from '../components/ChangelogSection';
 import Footer from '../components/Footer';
@@ -45,7 +46,9 @@ export default function HomePage(props: PageProps) {
   return (
     <Layout>
       <div className={`transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <HeroSection release={props.release} />
+        <HeroSection release={props.release} releases={props.releases} />
+        
+        <Notes />
         
         {props.release && (
           <ReleaseSection release={props.release} />
@@ -98,26 +101,27 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
       finalRateLimit = rateLimitResult.value;
     }
 
-    const lastUpdated = new Date().toLocaleString('en-US', {
-      timeZone: 'Asia/Jakarta',
-      hour12: false,
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    }) + ' WIB';
+const lastUpdated = new Date().toLocaleString('en-US', {
+  timeZone: 'Asia/Jakarta',
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+}) + ' (UTC+7)';
 
     const buildTime = Date.now() - startTime;
     console.log(`ISR props generated in ${buildTime}ms`);
 
-    return {
-      props: {
-        changelog: finalChangelog,
-        release: latestRelease,
-        rateLimit: finalRateLimit,
-        lastUpdated,
-      },
+return {
+  props: {
+    changelog: finalChangelog,
+    release: latestRelease,
+    releases: releasesResult.status === 'fulfilled' ? releasesResult.value.data : [],
+    rateLimit: finalRateLimit,
+    lastUpdated,
+  },
       // ISR: Regenerate page every 30 minutes (1800 seconds)
       revalidate: 1800,
     };
@@ -129,7 +133,8 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
     return {
       props: {
         changelog: '',
-        release: null,
+        release: releases[0] ?? null,
+        releases: releases, 
         rateLimit: {
           limit: 0,
           remaining: 0,
@@ -138,7 +143,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
         lastUpdated: new Date().toLocaleString('en-US', {
           timeZone: 'Asia/Jakarta',
           hour12: false,
-        }) + ' WIB',
+        }) + ' (UTC+7)',
         error: 'Unable to load data. Please try again later.',
       },
       // Retry more frequently for error states (5 minutes)

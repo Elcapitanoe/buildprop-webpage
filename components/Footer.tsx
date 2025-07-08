@@ -23,7 +23,7 @@ const Footer = memo<FooterProps>(({ rateLimit, lastUpdated }) => {
             @Elcapitanoe
           </a>
           {' • '}
-          Config by{' '}
+          Config maintained by{' '}
           <a 
             href="https://github.com/0x11DFE" 
             className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
@@ -33,23 +33,20 @@ const Footer = memo<FooterProps>(({ rateLimit, lastUpdated }) => {
             @0x11DFE
           </a>
         </p>
-        
+
         {rateLimit.limit > 0 && (
           <p>
-            GitHub API Limit:{' '}
+            GitHub API usage:{' '}
             <span className={isLowRateLimit ? 'text-red-600 font-semibold' : 'text-gray-700'}>
               {rateLimit.remaining.toLocaleString()} / {rateLimit.limit.toLocaleString()}
             </span>
             {' • '}
-            Reset at: {rateLimit.reset}
+            Resets at: {rateLimit.reset}
           </p>
         )}
-        
+
         <p className="text-xs">
           Last updated: {lastUpdated}
-          <span className="ml-2 px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
-            ISR Active
-          </span>
         </p>
       </div>
     </footer>
