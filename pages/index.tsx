@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { useState, useEffect } from 'react';
-import type { PageProps } from '../lib/types';
+import type { PageProps, Release } from '../lib/types';
 import { fetchReleases, fetchChangelog, fetchRateLimit, findLatestStableRelease } from '../lib/github-api';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
