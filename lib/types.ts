@@ -32,6 +32,7 @@ export interface GitHubApiResponse<T> {
 export interface PageProps {
   readonly changelog: string;
   readonly release: Release | null;
+  readonly releases: Release[];
   readonly rateLimit: RateLimit;
   readonly lastUpdated: string;
   readonly error?: string;

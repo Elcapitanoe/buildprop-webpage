@@ -78,6 +78,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
 
     // Handle releases
     let latestRelease = null;
+    let allReleases: Release[] = [];
     let finalRateLimit = {
       limit: 0,
       remaining: 0,
@@ -86,6 +87,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
 
     if (releasesResult.status === 'fulfilled') {
       latestRelease = findLatestStableRelease(releasesResult.value.data);
+      allReleases = releasesResult.value.data;
       finalRateLimit = releasesResult.value.rateLimit;
     } else {
       console.error('Failed to fetch releases:', releasesResult.reason);
@@ -118,7 +120,7 @@ return {
   props: {
     changelog: finalChangelog,
     release: latestRelease,
-    releases: releasesResult.status === 'fulfilled' ? releasesResult.value.data : [],
+    releases: allReleases,
     rateLimit: finalRateLimit,
     lastUpdated,
   },
@@ -133,8 +135,8 @@ return {
     return {
       props: {
         changelog: '',
-        release: releases[0] ?? null,
-        releases: releases, 
+        release: null,
+        releases: [],
         rateLimit: {
           limit: 0,
           remaining: 0,
