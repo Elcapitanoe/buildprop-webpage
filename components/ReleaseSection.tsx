@@ -2,7 +2,6 @@ import { memo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { Release } from '../lib/types';
 import { formatDate, formatFileSize, formatDownloadCount, createSafeMarkdown } from '../lib/utils';
-import { Clock, ExternalLink } from 'lucide-react';
 
 interface ReleaseSectionProps {
   readonly release: Release;
@@ -62,8 +61,8 @@ const HistoryIcon = memo(() => (
     />
   </svg>
 ));
-HistoryIcon.displayName = 'HistoryIcon';
 
+HistoryIcon.displayName = 'HistoryIcon';
 
 const ReleaseSection = memo<ReleaseSectionProps>(({ release }) => {
   const safeMarkdown = createSafeMarkdown(release.body);
@@ -82,27 +81,21 @@ const ReleaseSection = memo<ReleaseSectionProps>(({ release }) => {
         </div>
       </div>
 
-      
-      
-<div className="space-y-6">
-  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
- 
-    <h3 className="text-xl font-semibold text-gray-900">
-      Build: {release.name}
-    </h3>
+      <div className="space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <h3 className="text-xl font-semibold text-gray-900">
+            Build: {release.name}
+          </h3>
 
-  <div className="w-fit">
-    <time 
-      className="inline-flex max-w-full md:max-w-max items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-600 border border-primary-300"
-      dateTime={release.published_at}
-    >
-      Released on {formatDate(release.published_at)}
-    </time>
-  </div>
-    
-  </div>
-
-
+          <div className="w-fit">
+            <time 
+              className="inline-flex max-w-full md:max-w-max items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-600 border border-primary-300"
+              dateTime={release.published_at}
+            >
+              Released on {formatDate(release.published_at)}
+            </time>
+          </div>
+        </div>
         
         {safeMarkdown && (
           <div className="prose prose-gray max-w-none break-words overflow-x-auto">
@@ -117,54 +110,53 @@ const ReleaseSection = memo<ReleaseSectionProps>(({ release }) => {
               <h4 className="text-lg font-semibold text-gray-900">Downloads</h4>
             </div>
             
-<div className="flex flex-col sm:flex-row gap-3">
-  {release.assets.map((asset) => (
-    <div key={asset.id} className="flex-1 min-w-[200px]">
-      <a
-        href={asset.browser_download_url} target="_blank"  rel="noopener noreferrer"
-        className="flex items-center justify-between w-full p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Download ${asset.name}`}
-      >
-        <div className="flex items-center gap-3 flex-1 min-w-0">
-          <DownloadIcon />
-          <div className="flex-1 min-w-0">
-            <div className="font-medium truncate">{asset.name}</div>
-            <div className="text-sm opacity-90">
-              {formatFileSize(asset.size)}
-              {asset.download_count > 0 && (
-                <span> • {formatDownloadCount(asset.download_count)} downloads</span>
-              )}
+            <div className="flex flex-col sm:flex-row gap-3">
+              {release.assets.map((asset) => (
+                <div key={asset.id} className="flex-1 min-w-[200px]">
+                  <a
+                    href={asset.browser_download_url}
+                    className="flex items-center justify-between w-full p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Download ${asset.name}`}
+                  >
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <DownloadIcon />
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium truncate">{asset.name}</div>
+                        <div className="text-sm opacity-90">
+                          {formatFileSize(asset.size)}
+                          {asset.download_count > 0 && (
+                            <span> • {formatDownloadCount(asset.download_count)} downloads</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <CloudDownloadIcon />
+                  </a>
+                </div>
+              ))}
+
+              {/* Previous Builds Button */}
+              <div className="flex-1 min-w-[200px]">
+                <a
+                  href="https://github.com/Elcapitanoe/Komodo-Build-Prop/releases"
+                  className="flex items-center justify-between w-full p-4 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View all previous builds"
+                >
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <HistoryIcon />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium truncate">Previous Builds</div>
+                      <div className="text-sm opacity-90">GitHub Releases</div>
+                    </div>
+                  </div>
+                  <CloudDownloadIcon />
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
-        <CloudDownloadIcon />
-      </a>
-    </div>
-  ))}
-
-  {/* Tombol Previous Builds */}
-  <div className="flex-1 min-w-[200px]">
-    <a
-      href="https://sourceforge.net/projects/pixel-build-prop/files/" target="_blank"  rel="noopener noreferrer"
-      className="flex items-center justify-between w-full p-4 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-    >
-      <div className="flex items-center gap-3 flex-1 min-w-0">
-        <HistoryIcon />
-        <div className="flex-1 min-w-0">
-          <div className="font-medium truncate">Previous Builds</div>
-          <div className="text-sm opacity-90">SF Release page</div>
-        </div>
-      </div>
-      <CloudDownloadIcon />
-    </a>
-  </div>
-</div>
-
-
-
-           
           </div>
         )}
       </div>
