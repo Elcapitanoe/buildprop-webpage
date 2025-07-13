@@ -45,19 +45,14 @@ export function calculateTotalDownloadsFromAllReleases(
     .reduce((total, asset) => total + (asset.download_count || 0), 0);
 }
 
+import DOMPurify from 'dompurify';
+
 export function createSafeMarkdown(content: string): string {
   if (!content || typeof content !== 'string') {
     return '';
   }
   
-  return content
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
-    .replace(/javascript:/gi, '')
-    .replace(/data:/gi, '')
-    .replace(/vbscript:/gi, '')
-    .replace(/on\w+\s*=/gi, '')
-    .trim();
+  return DOMPurify.sanitize(content);
 }
 
 export function debounce<T extends (...args: any[]) => any>(
