@@ -3,9 +3,9 @@ name: Deploy Static Site to GitHub Pages
 on:
   push:
     branches: ["main"]
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch: 
   schedule:
-    - cron: "0 17 * * *"  # 00:00 UTC+7 (WIB)
+    - cron: "0 17 * * *"  
 
 permissions:
   contents: read
@@ -38,7 +38,7 @@ jobs:
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out  # ✅ ganti dari ./dist ke ./out
+          path: ./out  
 
   deploy:
     needs: build
