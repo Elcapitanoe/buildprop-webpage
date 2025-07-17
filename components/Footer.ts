@@ -1,6 +1,4 @@
-import type { RateLimit } from '../lib/types';
-
-export function Footer(rateLimit: RateLimit, lastUpdated: string): HTMLElement {
+export function Footer(lastUpdated: string): HTMLElement {
   const footer = document.createElement('footer');
   footer.className = 'text-center py-8 px-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in';
 
