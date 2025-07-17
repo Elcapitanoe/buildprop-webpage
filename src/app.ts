@@ -22,7 +22,7 @@ export function renderApp(container: HTMLElement, props: PageProps) {
   }
   
   wrapper.appendChild(ChangelogSection(props.changelog));
-  wrapper.appendChild(Footer(props.lastUpdated)); // ✅ Fixed: Only pass 1 argument
+  wrapper.appendChild(Footer(props.lastUpdated));
 
   container.appendChild(wrapper);
 
