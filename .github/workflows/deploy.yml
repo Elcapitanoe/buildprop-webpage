@@ -23,6 +23,11 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
     steps:
+      - name: Print current UTC and Local time
+        run: |
+          echo "Started at UTC: $(date -u)"
+          echo "Started at WIB: $(TZ=Asia/Jakarta date)"
+          
       - name: Checkout code
         uses: actions/checkout@v4
 
