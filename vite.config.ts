@@ -13,16 +13,27 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: false,
     minify: 'esbuild',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    target: 'es2020',
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 1000,
   },
   server: {
     port: 3000,
     open: true,
+    hmr: {
+      overlay: false,
+    },
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
+    legalComments: 'none',
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
+  },
+  optimizeDeps: {
+    include: [],
+    exclude: [],
   },
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),

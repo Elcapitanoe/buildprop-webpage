@@ -28,12 +28,12 @@
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link rel="dns-prefetch" href="//api.github.com">
-  <link rel="dns-prefetch" href="//raw.githubusercontent.com">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -59,7 +59,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="./styles/globals.css">
 </head>
-<body class="antialiased">
+<body class="antialiased" data-theme="">
   <div id="app" class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
     <main class="container mx-auto px-4 py-8 max-w-4xl">
       <!-- Loading state -->

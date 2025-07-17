@@ -3,7 +3,6 @@ import { renderApp } from './app';
 import type { PageProps } from '../lib/types';
 import {
   fetchReleases,
-  fetchChangelog,
   fetchRateLimit,
   findLatestStableRelease,
 } from '../lib/github-api';
@@ -46,9 +45,8 @@ async function main() {
       contentEl.classList.add('hidden');
       errorEl.classList.add('hidden');
 
-      const [releasesResult, changelogResult, rateLimitResult] = await Promise.allSettled([
+      const [releasesResult, rateLimitResult] = await Promise.allSettled([
         fetchReleases(),
-        fetchChangelog(),
         fetchRateLimit(),
       ]);
 
@@ -66,18 +64,6 @@ async function main() {
         finalRateLimit = releasesResult.value.rateLimit;
       } else {
         console.error('Failed to fetch releases:', releasesResult.reason);
-      }
-
-      const finalChangelog =
-        changelogResult.status === 'fulfilled'
-          ? changelogResult.value
-          : '# Changelog\n\nChangelog is currently unavailable. Please check back later.';
-
-      // Debug changelog result
-      if (changelogResult.status === 'rejected') {
-        console.error('Changelog fetch failed in main:', changelogResult.reason);
-      } else {
-        console.log('Changelog loaded successfully in main, length:', finalChangelog.length);
       }
 
       if (rateLimitResult.status === 'fulfilled') {
@@ -98,7 +84,6 @@ async function main() {
       console.log(`Data loaded in ${buildTime}ms`);
 
       showContent({
-        changelog: finalChangelog,
         release: latestRelease,
         releases: allReleases,
         rateLimit: finalRateLimit,

@@ -15,7 +15,7 @@ interface RequestOptions {
 class GitHubApiError extends Error implements ApiError {
   constructor(
     message: string,
-    public readonly status?: number,
+    public readonly status: number = 0,
     public readonly code?: string
   ) {
     super(message);
@@ -152,36 +152,7 @@ export async function fetchReleases(): Promise<GitHubApiResponse<Release[]>> {
     if (error instanceof GitHubApiError) {
       throw error;
     }
-    throw new GitHubApiError('Failed to fetch releases', undefined, 'FETCH_ERROR');
-  }
-}
-
-export async function fetchChangelog(): Promise<string> {
-  const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/CHANGELOG.md`;
-  
-  try {
-    console.log('Fetching changelog from:', url);
-    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
-    
-    if (!response.ok) {
-      console.error(`Changelog fetch failed with status: ${response.status}, statusText: ${response.statusText}`);
-      throw new GitHubApiError(`Failed to fetch changelog: ${response.status}`, response.status);
-    }
-    
-    if (!response.ok) {
-      console.error(`Changelog fetch failed with status: ${response.status}, statusText: ${response.statusText}`);
-      throw new GitHubApiError(`Failed to fetch changelog: ${response.status}`, response.status);
-    }
-    
-    const changelog = await response.text();
-    console.log('Changelog fetched successfully, length:', changelog.length, 'preview:', changelog.substring(0, 100));
-    return changelog;
-  } catch (error) {
-    console.error('Failed to fetch changelog, error details:', error);
-    if (error instanceof GitHubApiError) {
-      console.error('GitHub API Error - Status:', error.status, 'Code:', error.code, 'Message:', error.message);
-    }
-    return '# Changelog\n\nChangelog is currently unavailable. Please check back later.';
+    throw new GitHubApiError('Failed to fetch releases', 0, 'FETCH_ERROR');
   }
 }
 
@@ -248,5 +219,5 @@ export function findLatestStableRelease(releases: Release[]): Release | null {
     !release.tag_name.toLowerCase().includes('beta')
   );
   
-  return stableRelease || releases[0];
+  return stableRelease || releases[0]!;
 }

@@ -1,11 +1,11 @@
 import type { Release } from '../lib/types';
 import { formatDownloadCount, calculateTotalDownloadsFromAllReleases } from '../lib/utils';
 
-export function HeroSection(release: Release | null, releases?: Release[]): HTMLElement {
+export function HeroSection(release: Release | null, releases: Release[] = []): HTMLElement {
   const section = document.createElement('section');
   section.className = 'text-center py-12 px-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-8 animate-fade-in';
 
-  const totalDownloadsAll = releases?.length ? calculateTotalDownloadsFromAllReleases(releases) : 0;
+  const totalDownloadsAll = releases.length > 0 ? calculateTotalDownloadsFromAllReleases(releases) : 0;
 
   section.innerHTML = `
     <h1 class="text-4xl md:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4 leading-tight">
@@ -37,7 +37,7 @@ export function HeroSection(release: Release | null, releases?: Release[]): HTML
         
         <div class="text-center">
           <div class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-1">
-            ${releases?.length ?? 0}
+            ${releases.length}
           </div>
           <div class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide font-medium">
            Published Builds
