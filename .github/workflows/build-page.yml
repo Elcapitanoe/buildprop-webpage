@@ -3,10 +3,10 @@ name: Deploy Static Site to GitHub Pages
 on:
   push:
     branches: ["main"]
-  workflow_dispatch: 
+  workflow_dispatch:
   schedule:
-    - cron: "0 17 * * *"  
-
+    - cron: "0 17 * * *"
+    
 permissions:
   contents: read
   pages: write
@@ -19,6 +19,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -38,7 +40,7 @@ jobs:
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out  
+          path: ./out 
 
   deploy:
     needs: build
