@@ -33,7 +33,7 @@ export interface PageProps {
   readonly release: Release | null;
   readonly releases: Release[];
   readonly rateLimit: RateLimit;
-  readonly lastUpdated: string;
+  readonly lastDeployed: string;
   readonly error?: string;
 }
 

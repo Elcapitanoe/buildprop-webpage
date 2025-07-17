@@ -20,7 +20,7 @@ export function renderApp(container: HTMLElement, props: PageProps) {
     wrapper.appendChild(ReleaseSection(props.release));
   }
   
-  wrapper.appendChild(Footer(props.lastUpdated));
+  wrapper.appendChild(Footer(props.lastDeployed));
 
   container.appendChild(wrapper);
 

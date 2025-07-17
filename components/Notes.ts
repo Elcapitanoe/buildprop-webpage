@@ -5,7 +5,7 @@ export function Notes(): HTMLElement {
   div.innerHTML = `
     <p class="font-semibold">Note:</p>
     <p>
-      This page doesn't update automatically due to GitHub limitations. To view the latest version, try refreshing your browser two or more times if needed. You can check the last update at the bottom of the page, or visit my GitHub release page by clicking the "Previous Builds" button below.  
+      This page refreshes every hour. However, due to GitHub limitations, the latest content may not appear immediately. You can check the timestamp of the latest deployment at the bottom of the page or visit the GitHub release page by clicking the “Previous Builds” button below.
     </p>
   `;
 

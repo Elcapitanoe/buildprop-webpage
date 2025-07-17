@@ -37,5 +37,14 @@ export default defineConfig({
   },
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    '__BUILD_TIME__': JSON.stringify(new Date().toLocaleString('en-US', {
+      timeZone: 'Asia/Jakarta',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }) + ' (UTC+7)'),
   },
 });

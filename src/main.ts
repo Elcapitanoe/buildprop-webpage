@@ -70,15 +70,7 @@ async function main() {
         finalRateLimit = rateLimitResult.value;
       }
 
-      const lastUpdated = new Date().toLocaleString('en-US', {
-        timeZone: 'Asia/Jakarta',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }) + ' (UTC+7)';
+      const lastDeployed = __BUILD_TIME__;
 
       const buildTime = Date.now() - startTime;
       console.log(`Data loaded in ${buildTime}ms`);
@@ -87,7 +79,7 @@ async function main() {
         release: latestRelease,
         releases: allReleases,
         rateLimit: finalRateLimit,
-        lastUpdated,
+        lastDeployed,
       });
     } catch (error) {
       console.error('Critical error loading data:', error);

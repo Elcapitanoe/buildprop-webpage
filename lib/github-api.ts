@@ -16,7 +16,7 @@ class GitHubApiError extends Error implements ApiError {
   constructor(
     message: string,
     public readonly status: number = 0,
-    public readonly code: string = 'UNKNOWN'
+    public readonly code?: string
   ) {
     super(message);
     this.name = 'GitHubApiError';
