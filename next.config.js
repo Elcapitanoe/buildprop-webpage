@@ -4,11 +4,14 @@ const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
   swcMinify: true,
   compress: true,
   poweredByHeader: false,
+  env: {
+    CUSTOM_KEY: 'production',
+  },
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
@@ -20,16 +23,13 @@ const nextConfig = {
             name: 'vendor',
             chunks: 'all',
             test: /node_modules/,
-            enforce: true
-          }
-        }
+            enforce: true,
+          },
+        },
       };
     }
     return config;
   },
-  env: {
-    CUSTOM_KEY: 'production'
-  }
 };
 
 module.exports = nextConfig;
