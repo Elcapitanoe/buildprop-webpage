@@ -9,10 +9,6 @@ const nextConfig = {
   swcMinify: true,
   compress: true,
   poweredByHeader: false,
-  generateEtags: true,
-  experimental: {
-    isrMemoryCacheSize: 0
-  },
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
@@ -30,19 +26,6 @@ const nextConfig = {
       };
     }
     return config;
-  },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, must-revalidate'
-          }
-        ]
-      }
-    ];
   },
   env: {
     CUSTOM_KEY: 'production'
