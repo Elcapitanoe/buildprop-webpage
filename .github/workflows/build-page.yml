@@ -1,11 +1,11 @@
-name: Deploy Static Site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
   schedule:
-    - cron: "0 17 * * *"
+    - cron: "0 * * * *"
     
 permissions:
   contents: read
