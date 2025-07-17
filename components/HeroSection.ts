@@ -1,11 +1,10 @@
 import type { Release } from '../lib/types';
-import { formatDownloadCount, calculateTotalDownloads, calculateTotalDownloadsFromAllReleases } from '../lib/utils';
+import { formatDownloadCount, calculateTotalDownloadsFromAllReleases } from '../lib/utils';
 
 export function HeroSection(release: Release | null, releases?: Release[]): HTMLElement {
   const section = document.createElement('section');
   section.className = 'text-center py-12 px-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-8 animate-fade-in';
 
-  const totalDownloads = release ? calculateTotalDownloads(release.assets) : 0;
   const totalDownloadsAll = releases?.length ? calculateTotalDownloadsFromAllReleases(releases) : 0;
 
   section.innerHTML = `
