@@ -10,30 +10,31 @@
   }
   
   body {
-    @apply text-gray-900 bg-gray-50;
+    @apply text-gray-900 bg-gray-50 dark:text-gray-100 dark:bg-gray-900;
     font-feature-settings: 'rlig' 1, 'calt' 1;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   *:focus-visible {
-    @apply ring-2 ring-primary-500 ring-offset-2 outline-none;
+    @apply ring-2 ring-primary-500 ring-offset-2 dark:ring-offset-gray-800 outline-none;
   }
 }
 
 @layer components {
   .prose {
-    @apply text-gray-700 leading-relaxed;
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed;
   }
   
   .prose h1 {
-    @apply text-2xl md:text-3xl font-bold text-gray-900 mt-8 mb-4 pb-2 border-b border-gray-200;
+    @apply text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700;
   }
   
   .prose h2 {
-    @apply text-xl md:text-2xl font-semibold text-gray-900 mt-6 mb-3 p-3 bg-gray-50 rounded-lg border-l-4 border-primary-500;
+    @apply text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mt-6 mb-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-primary-500 dark:border-primary-400;
   }
   
   .prose h3 {
-    @apply text-lg md:text-xl font-semibold text-gray-900 mt-5 mb-2;
+    @apply text-lg md:text-xl font-semibold text-gray-900 dark:text-white mt-5 mb-2;
   }
   
   .prose p {
@@ -45,11 +46,11 @@
   }
   
   .prose code {
-    @apply px-2 py-1 bg-gray-100 text-gray-800 rounded text-sm font-mono border;
+    @apply px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded text-sm font-mono border border-gray-200 dark:border-gray-700;
   }
   
   .prose pre {
-    @apply p-4 bg-gray-900 text-gray-100 rounded-lg overflow-x-auto mb-4;
+    @apply p-4 bg-gray-900 dark:bg-gray-950 text-gray-100 dark:text-gray-200 rounded-lg overflow-x-auto mb-4;
   }
   
   .prose pre code {
@@ -57,53 +58,53 @@
   }
   
   .prose blockquote {
-    @apply pl-4 py-2 border-l-4 border-primary-500 bg-gray-50 rounded-r-lg mb-4 italic;
+    @apply pl-4 py-2 border-l-4 border-primary-500 dark:border-primary-400 bg-gray-50 dark:bg-gray-800 rounded-r-lg mb-4 italic;
   }
   
   .prose a {
-    @apply text-primary-600 hover:text-primary-700 font-medium underline decoration-primary-200 hover:decoration-primary-300 transition-colors;
+    @apply text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium underline decoration-primary-200 dark:decoration-primary-600 hover:decoration-primary-300 dark:hover:decoration-primary-400 transition-colors;
   }
   
   .prose strong {
-    @apply font-semibold text-gray-900;
+    @apply font-semibold text-gray-900 dark:text-white;
   }
   
   .prose img {
-    @apply max-w-full h-auto rounded-lg border border-gray-200 my-4;
+    @apply max-w-full h-auto rounded-lg border border-gray-200 dark:border-gray-700 my-4;
   }
   
   .prose table {
-    @apply w-full border-collapse border border-gray-200 rounded-lg overflow-hidden my-4;
+    @apply w-full border-collapse border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden my-4;
   }
   
   .prose th, .prose td {
-    @apply border border-gray-200 px-4 py-2;
+    @apply border border-gray-200 dark:border-gray-700 px-4 py-2;
   }
   
   .prose th {
-    @apply bg-gray-50 font-semibold text-gray-900;
+    @apply bg-gray-50 dark:bg-gray-800 font-semibold text-gray-900 dark:text-white;
   }
 
   /* Simplified Changelog Styles */
   .changelog-content {
-    @apply text-gray-700 leading-relaxed;
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed;
   }
   
   .changelog-content h1 {
-    @apply text-lg font-semibold text-gray-900 mt-6 mb-3 pb-2 border-b border-gray-200;
+    @apply text-lg font-semibold text-gray-900 dark:text-white mt-6 mb-3 pb-2 border-b border-gray-200 dark:border-gray-700;
   }
   
   .changelog-content h2 {
-    @apply text-base font-medium text-gray-800 mt-5 mb-2 flex items-center gap-2;
+    @apply text-base font-medium text-gray-800 dark:text-gray-200 mt-5 mb-2 flex items-center gap-2;
   }
   
   .changelog-content h2::before {
     content: "•";
-    @apply text-primary-500 font-bold;
+    @apply text-primary-500 dark:text-primary-400 font-bold;
   }
   
   .changelog-content h3 {
-    @apply text-sm font-medium text-gray-700 mt-4 mb-2;
+    @apply text-sm font-medium text-gray-700 dark:text-gray-300 mt-4 mb-2;
   }
   
   .changelog-content p {
@@ -115,15 +116,15 @@
   }
   
   .changelog-content li {
-    @apply text-sm text-gray-600 leading-relaxed;
+    @apply text-sm text-gray-600 dark:text-gray-400 leading-relaxed;
   }
   
   .changelog-content code {
-    @apply px-1.5 py-0.5 bg-gray-100 text-gray-800 rounded text-xs font-mono;
+    @apply px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded text-xs font-mono;
   }
   
   .changelog-content pre {
-    @apply p-3 bg-gray-900 text-gray-100 rounded-md overflow-x-auto mb-3 text-xs;
+    @apply p-3 bg-gray-900 dark:bg-gray-950 text-gray-100 dark:text-gray-200 rounded-md overflow-x-auto mb-3 text-xs;
   }
   
   .changelog-content pre code {
@@ -131,19 +132,19 @@
   }
   
   .changelog-content blockquote {
-    @apply pl-3 py-2 border-l-2 border-gray-300 bg-gray-50 rounded-r text-sm italic mb-3;
+    @apply pl-3 py-2 border-l-2 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 rounded-r text-sm italic mb-3;
   }
   
   .changelog-content a {
-    @apply text-primary-600 hover:text-primary-700 font-medium underline decoration-primary-200 hover:decoration-primary-300 transition-colors;
+    @apply text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium underline decoration-primary-200 dark:decoration-primary-600 hover:decoration-primary-300 dark:hover:decoration-primary-400 transition-colors;
   }
   
   .changelog-content strong {
-    @apply font-medium text-gray-900;
+    @apply font-medium text-gray-900 dark:text-white;
   }
   
   .changelog-content img {
-    @apply max-w-full h-auto rounded border border-gray-200 my-3;
+    @apply max-w-full h-auto rounded border border-gray-200 dark:border-gray-700 my-3;
   }
 }
 

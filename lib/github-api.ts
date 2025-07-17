@@ -160,17 +160,27 @@ export async function fetchChangelog(): Promise<string> {
   const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/CHANGELOG.md`;
   
   try {
-    const response = await fetchWithRetry(url, { retries: 1 }); // Fewer retries for changelog
+    console.log('Fetching changelog from:', url);
+    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
     
     if (!response.ok) {
+      console.error(`Changelog fetch failed with status: ${response.status}, statusText: ${response.statusText}`);
+      throw new GitHubApiError(`Failed to fetch changelog: ${response.status}`, response.status);
+    }
+    
+    if (!response.ok) {
+      console.error(`Changelog fetch failed with status: ${response.status}, statusText: ${response.statusText}`);
       throw new GitHubApiError(`Failed to fetch changelog: ${response.status}`, response.status);
     }
     
     const changelog = await response.text();
-    console.log('Changelog fetched successfully');
+    console.log('Changelog fetched successfully, length:', changelog.length, 'preview:', changelog.substring(0, 100));
     return changelog;
   } catch (error) {
-    console.warn('Failed to fetch changelog:', error);
+    console.error('Failed to fetch changelog, error details:', error);
+    if (error instanceof GitHubApiError) {
+      console.error('GitHub API Error - Status:', error.status, 'Code:', error.code, 'Message:', error.message);
+    }
     return '# Changelog\n\nChangelog is currently unavailable. Please check back later.';
   }
 }
@@ -179,7 +189,7 @@ export async function fetchRateLimit(): Promise<RateLimit> {
   const url = `${GITHUB_API_BASE}/rate_limit`;
   
   try {
-    const response = await fetchWithRetry(url, { retries: 1 });
+    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
     
     if (!response.ok) {
       throw new GitHubApiError(`Failed to fetch rate limit: ${response.status}`, response.status);
