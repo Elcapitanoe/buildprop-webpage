@@ -13,15 +13,19 @@ interface RequestOptions {
 }
 
 class GitHubApiError extends Error implements ApiError {
+  public readonly code: string;
+
   constructor(
     message: string,
     public readonly status: number = 0,
-    public readonly code?: string
+    code?: string
   ) {
     super(message);
     this.name = 'GitHubApiError';
+    this.code = code ?? 'UNKNOWN_ERROR'; // fallback ke string default
   }
 }
+
 
 function createHeaders(etag?: string): HeadersInit {
   const headers: Record<string, string> = {
