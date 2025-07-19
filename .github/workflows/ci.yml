@@ -10,7 +10,6 @@ jobs:
   lint-and-build:
     name: Lint, Type Check and Build
     runs-on: ubuntu-latest
-    fail-fast: true
     permissions:
       contents: read
       statuses: write
