@@ -37,6 +37,24 @@ export interface PageProps {
   readonly error?: string;
 }
 
+export interface Commit {
+  readonly sha: string;
+  readonly commit: {
+    readonly message: string;
+    readonly author: {
+      readonly name: string;
+      readonly email: string;
+      readonly date: string;
+    };
+  };
+  readonly author: {
+    readonly login: string;
+    readonly avatar_url: string;
+    readonly html_url: string;
+  } | null;
+  readonly html_url: string;
+}
+
 export interface ApiError {
   readonly message: string;
   readonly status: number;
