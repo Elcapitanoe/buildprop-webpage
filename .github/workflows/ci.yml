@@ -1,0 +1,54 @@
+name: CI | TypeScript + HTML + CSS + JS
+
+on:
+  push:
+    branches: [main, staging, dev]
+  pull_request:
+    branches: ['**']
+
+jobs:
+  lint-and-build:
+    name: Lint, Type Check and Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      statuses: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Type Check
+        if: ${{ hashFiles('tsconfig.json') != '' }}
+        continue-on-error: false
+        run: |
+          npx tsc --noEmit
+
+      - name: ESLint for JavaScript/TypeScript
+        if: ${{ hashFiles('.eslintrc*') != '' }}
+        run: |
+          npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0
+
+      - name: Stylelint for CSS/SCSS
+        if: ${{ hashFiles('stylelint.config.js', '.stylelintrc*') != '' }}
+        run: |
+          npx stylelint "**/*.{css,scss}" --allow-empty-input
+
+      - name: HTMLHint
+        if: ${{ hashFiles('.htmlhintrc') != '' }}
+        run: |
+          npx htmlhint "**/*.html"
+
+      - name: Build Project
+        if: ${{ hashFiles('vite.config.*', 'next.config.js', 'webpack.config.js') != '' }}
+        run: |
+          npm run build
