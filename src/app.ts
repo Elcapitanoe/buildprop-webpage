@@ -2,6 +2,8 @@ import type { PageProps } from '../lib/types';
 import { HeroSection } from '../components/HeroSection';
 import { Notes } from '../components/Notes';
 import { ReleaseSection } from '../components/ReleaseSection';
+import { StatsSection } from '../components/StatsSection';
+import { CommitHistory } from '../components/CommitHistory';
 import { Footer } from '../components/Footer';
 
 export function renderApp(container: HTMLElement, props: PageProps) {
@@ -20,6 +22,8 @@ export function renderApp(container: HTMLElement, props: PageProps) {
     wrapper.appendChild(ReleaseSection(props.release));
   }
   
+  wrapper.appendChild(StatsSection(props.releases));
+  wrapper.appendChild(CommitHistory());
   wrapper.appendChild(Footer(props.lastDeployed));
 
   container.appendChild(wrapper);
