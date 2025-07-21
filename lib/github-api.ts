@@ -225,3 +225,136 @@ export function findLatestStableRelease(releases: Release[]): Release | null {
   
   return stableRelease || releases[0]!;
 }
+
+export async function fetchCommits(page: number = 1, perPage: number = 10): Promise<GitHubApiResponse<any[]>> {
+  const url = `${GITHUB_API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/commits?page=${page}&per_page=${perPage}`;
+  
+  try {
+    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
+    
+    if (!response.ok) {
+      throw new GitHubApiError(`Failed to fetch commits: ${response.status}`, response.status);
+    }
+    
+    const commits = await response.json();
+    const rateLimit = extractRateLimit(response);
+    
+    console.log(`Fetched ${commits.length} commits (page ${page}), rate limit: ${rateLimit.remaining}/${rateLimit.limit}`);
+    
+    return { data: commits, rateLimit };
+  } catch (error) {
+    if (error instanceof GitHubApiError) {
+      throw error;
+    }
+    throw new GitHubApiError('Failed to fetch commits', 0, 'FETCH_ERROR');
+  }
+}
+export async function fetchRepoStats(): Promise<GitHubApiResponse<any>> {
+  const url = `${GITHUB_API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}`;
+  
+  try {
+    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
+    
+    if (!response.ok) {
+      throw new GitHubApiError(`Failed to fetch repository stats: ${response.status}`, response.status);
+    }
+    
+    const stats = await response.json();
+    const rateLimit = extractRateLimit(response);
+    
+    console.log(`Fetched repository stats, rate limit: ${rateLimit.remaining}/${rateLimit.limit}`);
+    
+    return { data: stats, rateLimit };
+  } catch (error) {
+    if (error instanceof GitHubApiError) {
+      throw error;
+    }
+    throw new GitHubApiError('Failed to fetch repository stats', 0, 'FETCH_ERROR');
+  }
+}
+
+export async function fetchCommitActivity(): Promise<GitHubApiResponse<any[]>> {
+  const url = `${GITHUB_API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/stats/commit_activity`;
+  
+  try {
+    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
+    
+    if (!response.ok) {
+      throw new GitHubApiError(`Failed to fetch commit activity: ${response.status}`, response.status);
+    }
+    
+    const activity = await response.json();
+    const rateLimit = extractRateLimit(response);
+    
+    console.log(`Fetched commit activity, rate limit: ${rateLimit.remaining}/${rateLimit.limit}`);
+    
+    return { data: activity || [], rateLimit };
+  } catch (error) {
+    if (error instanceof GitHubApiError) {
+      throw error;
+    }
+    throw new GitHubApiError('Failed to fetch commit activity', 0, 'FETCH_ERROR');
+  }
+}
+
+export async function fetchCodeFrequency(): Promise<GitHubApiResponse<any[]>> {
+  const url = `${GITHUB_API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/stats/code_frequency`;
+  
+  try {
+    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
+    
+    if (!response.ok) {
+      throw new GitHubApiError(`Failed to fetch code frequency: ${response.status}`, response.status);
+    }
+    
+    const frequency = await response.json();
+    const rateLimit = extractRateLimit(response);
+    
+    console.log(`Fetched code frequency, rate limit: ${rateLimit.remaining}/${rateLimit.limit}`);
+    
+    // Transform the data to a more usable format
+    const transformedData = (frequency || []).map((week: [number, number, number]) => ({
+      week: week[0],
+      additions: week[1],
+      deletions: week[2],
+    }));
+    
+    return { data: transformedData, rateLimit };
+  } catch (error) {
+    if (error instanceof GitHubApiError) {
+      throw error;
+    }
+    throw new GitHubApiError('Failed to fetch code frequency', 0, 'FETCH_ERROR');
+  }
+}
+
+export async function fetchPunchCard(): Promise<GitHubApiResponse<any[]>> {
+  const url = `${GITHUB_API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/stats/punch_card`;
+  
+  try {
+    const response = await fetchWithRetry(url, { retries: MAX_RETRIES });
+    
+    if (!response.ok) {
+      throw new GitHubApiError(`Failed to fetch punch card: ${response.status}`, response.status);
+    }
+    
+    const punchCard = await response.json();
+    const rateLimit = extractRateLimit(response);
+    
+    console.log(`Fetched punch card, rate limit: ${rateLimit.remaining}/${rateLimit.limit}`);
+    
+    // Transform the data to a more usable format
+    const transformedData = (punchCard || []).map((item: [number, number, number]) => ({
+      day: item[0],
+      hour: item[1],
+      commits: item[2],
+    }));
+    
+    return { data: transformedData, rateLimit };
+  } catch (error) {
+    if (error instanceof GitHubApiError) {
+      throw error;
+    }
+    throw new GitHubApiError('Failed to fetch punch card', 0, 'FETCH_ERROR');
+  }
+}
